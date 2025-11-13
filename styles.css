@@ -1,0 +1,51 @@
+body,
+.columns-parent {
+  width: 100%;
+  height: 100%;
+}
+
+.dark {
+  background-color: rgb(31, 31, 31);
+  color: rgb(224, 224, 224);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 4px;
+  width: 100%;
+  border-top: 1px solid rgb(63, 63, 63);
+}
+
+.subtext {
+  margin-top: -12px;
+  font-size: 14px;
+}
+
+column {
+  float: left;
+  width: 31%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+hidden {
+  display: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.margin-top-2x {
+  margin-top: 40px;
+}
+
+.margin-left {
+  margin-left: 10px;
+}

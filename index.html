@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>incremental</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+</html>
+
+<body class="dark">
+  <div class="columns-parent">
+    <column>
+      <p id="money-display">You have $0.</p>
+      <p id="eff-display" class="subtext">Effective multiplier: 1.00x</p>
+      <p id="auto-display" class="subtext">???</p>
+
+      <button onclick="moneyButtonPressed()">Make a dollar</button>
+
+      <div id="extra-dollar-upgrade" class="margin-top-2x" hidden>
+        <p class="inline">Get an extra dollar for</p>
+        <button onclick="buyUpgrade('extra-dollar')">$10</button>
+        <p class="inline margin-left"></p>
+      </div>
+      <div id="hire-someone-upgrade" hidden>
+        <p class="inline">Get someone to press the button for you for</p>
+        <button onclick="buyUpgrade('hire-someone')">$50</button>
+        <p class="inline margin-left"></p>
+      </div>
+
+      <div id="compress-dollars-upgrade" class="margin-top" hidden>
+        <p class="inline">
+          Stack some dollars together and make it look like more
+        </p>
+        <button onclick="buyUpgrade('compress-dollars')">$1,000</button>
+        <p class="inline margin-left">1.00x</p>
+      </div>
+      <div id="smart-investments-upgrade" hidden>
+        <p class="inline">Invest some money carefully</p>
+        <button onclick="buyUpgrade('smart-investments')">$25,000</button>
+        <p class="inline margin-left">^1.00</p>
+      </div>
+
+      <div id="bonus-dollars-upgrade" class="margin-top" hidden>
+        <p class="inline">Every $100,000 gives you... another dollar</p>
+        <button onclick="buyUpgrade('bonus-dollars')">$1,000,000</button>
+        <p class="subtext" style="margin-top: 0">Caps at $5,000,000 or +$50</p>
+      </div>
+
+      <div id="convert-money-to-mm" class="margin-top-2x" hidden>
+        <p>Convert all your money so far into Monopoly Money ($MM)</p>
+        <button onclick="convertMoneyToMM()">Convert</button>
+        <p id="mm-convert-display" class="subtext" style="margin-top: 12px">
+          You will gain $MM 0 if you convert now.
+        </p>
+      </div>
+
+      <div
+        id="mm-divider"
+        class="margin-top"
+        style="border-top: 1px solid rgb(63, 63, 63)"
+        hidden
+      ></div>
+
+      <p id="mm-display" hidden>You have $MM 0.</p>
+
+      <div id="mm-increases-multiplier-upgrade" hidden>
+        <p class="inline">$MM boosts the dollar stacking multiplier</p>
+        <button onclick="buyUpgrade('mm-increases-multiplier', 'mm')">
+          $MM 10
+        </button>
+        <p class="inline margin-left">1.00x</p>
+      </div>
+      <div id="raise-maxes-upgrade" hidden>
+        <p class="inline">Raise the max of the first two upgrades</p>
+        <button onclick="buyUpgrade('raise-maxes', 'mm')">$MM 100</button>
+        <p class="inline margin-left"></p>
+      </div>
+    </column>
+    <column>
+      <p>Column 2</p>
+    </column>
+    <column>
+      <p>Column 3</p>
+    </column>
+  </div>
+
+  <div class="footer">
+    <div class="inline">
+      <button onclick="save()">Save manually</button>
+      <button onclick="clearSave()">Clear save</button>
+      <button onclick="toggleColourScheme()">Toggle colour scheme</button>
+    </div>
+  </div>
+  <script src="./consts.js"></script>
+  <script src="./helpers.js"></script>
+  <script src="./save.js"></script>
+  <script defer src="./script.js"></script>
+</body>
