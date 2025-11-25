@@ -45,15 +45,13 @@
       <div id="bonus-dollars-upgrade" class="margin-top" hidden>
         <p class="inline">Every $100,000 gives you... another dollar</p>
         <button onclick="buyUpgrade('bonus-dollars')">$1,000,000</button>
-        <p class="subtext" style="margin-top: 0">Caps at $5,000,000 or +$50</p>
+        <p class="subtext" style="margin-top: 4px">Caps at $5,000,000 or +$50</p>
       </div>
 
       <div id="convert-money-to-mm" class="margin-top-2x" hidden>
         <p>Convert all your money so far into Monopoly Money ($MM)</p>
-        <button onclick="convertMoneyToMM()">Convert</button>
-        <p id="mm-convert-display" class="subtext" style="margin-top: 12px">
-          You will gain $MM 0 if you convert now.
-        </p>
+        <p class="subtext">Note: this will <u>not</u> reset any upgrades</p>
+        <button id="mm-convert-display" onclick="convertMoneyToMM()" style="margin-top: -24px">Convert for $MM 0</button>
       </div>
 
       <div
@@ -71,6 +69,7 @@
           $MM 10
         </button>
         <p class="inline margin-left">1.00x</p>
+        <p class="subtext" style="margin-top: 4px">$MM always boosts the dollar stacking multiplier, but this upgrade enhances that effect.</p>
       </div>
       <div id="raise-maxes-upgrade" hidden>
         <p class="inline">Raise the max of the first two upgrades</p>

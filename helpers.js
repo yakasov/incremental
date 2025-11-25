@@ -18,7 +18,7 @@ function f(n) {
     const a = fixed.slice(0, fixed.length - 6);
     return [a, b, c].join(",");
   }
-  return n.toExponential(3);
+  return n.toExponential(3).replace("+", "");
 }
 
 function toggleColourScheme() {

@@ -27,7 +27,7 @@ const elementRequirements = {
   "convert-money-to-mm": {
     elementId: "convert-money-to-mm",
     isHidden: true,
-    requirement: () => currencies.money >= 100_000_000,
+    requirement: () => currencies.money >= 50_000_000,
   },
   "mm-elements": {
     elementIds: ["mm-divider", "mm-display", "mm-increases-multiplier-upgrade"],
@@ -158,7 +158,7 @@ const upgrades = {
       1 +
       Math.max(
         Math.log10(currencies.mm) *
-          (1 + upgrades["mm-increases-multiplier"].count / 3.33),
+          (1 + upgrades["mm-increases-multiplier"].count / 2.5),
         0
       ),
     update: () => {
@@ -175,7 +175,7 @@ const upgrades = {
     },
   },
   "raise-maxes": {
-    baseCost: 50,
+    baseCost: 35,
     count: 0,
     costScale: () => Math.floor(10 ** (1 + upgrades["raise-maxes"].count / 4)),
     max: 10,

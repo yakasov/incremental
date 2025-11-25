@@ -100,7 +100,7 @@ function updateDisplays() {
 
   updateText(
     "mm-convert-display",
-    `You will gain $MM ${f(mmMultiplier())} if you convert now.`
+    `Convert for $MM ${f(mmMultiplier())}`
   );
   updateText("mm-display", `You have $MM ${f(currencies.mm)}.`);
 }

@@ -23,8 +23,8 @@ function load() {
   if (!encodedSave || encodedSave.length === 0) return;
 
   const save = JSON.parse(atob(encodedSave));
-  currencies.money = save.currencies.money ?? 0;
-  currencies.mm = save.currencies.mm ?? 0;
+  currencies.money = save.currencies?.money ?? 0;
+  currencies.mm = save.currencies?.mm ?? 0;
 
   for (const requirement of Object.keys(save.requirements)) {
     elementRequirements[requirement].isHidden = save.requirements[requirement];
