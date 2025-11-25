@@ -3,7 +3,8 @@ const currencies = {
   mm: 0,
 };
 let lastAutoclick = 0;
-const autoclickInterval = 10;
+const AUTOCLICK_INTERVAL = 10;
+const GAMELOOP_INTERVAL = 50;
 
 load();
 
@@ -32,7 +33,21 @@ function moneyMultiplier() {
 function mmMultiplier() {
   if (currencies.money < 250_000_000) return 0;
 
+  const softcapDisplay = document.getElementById("mm-convert-softcap");
+
   let n = currencies.money / 250_000_000;
+  n = n ** upgrades["raise-mm"].eff();
+
+  if (n > 100_000) {
+    n = Math.sqrt(n - 100_000) * 5000;
+    softcapDisplay.innerText = "(softcapped at $MM 100,000)";
+  }
+
+  if (n > 5_000_000) {
+    n = 5_000_000 + n ** 0.8;
+    softcapDisplay.innerText = "(softcapped more at $MM 5,000,000)";
+  }
+
   return n;
 }
 
@@ -42,12 +57,12 @@ function moneyButtonPressed() {
 }
 
 function checkElementsToShow() {
-  for (const info of Object.values(elementRequirements)) {
+  for (const [key, info] of Object.entries(elementRequirements)) {
     let elements = [];
     if (info.elementIds) {
       elements = info.elementIds;
     } else {
-      elements.push(info.elementId);
+      elements.push(info.elementId ?? `${key}-upgrade`);
     }
 
     for (const elementId of elements) {
@@ -64,7 +79,7 @@ function checkElementsToShow() {
 }
 
 function autoclick() {
-  lastAutoclick += autoclickInterval;
+  lastAutoclick += AUTOCLICK_INTERVAL;
   if (
     upgrades["hire-someone"].count > 0 &&
     1000 / upgrades["hire-someone"].count < lastAutoclick
@@ -72,6 +87,14 @@ function autoclick() {
     moneyButtonPressed();
     lastAutoclick = 0;
   }
+}
+
+function autoGainMM() {
+  if (upgrades["gain-1%-of-mm"].count >= 1) {
+    currencies.mm += mmMultiplier() / (GAMELOOP_INTERVAL * 10);
+  }
+
+  upgrades["mm-increases-multiplier"].update();
 }
 
 function convertMoneyToMM() {
@@ -106,10 +129,12 @@ function updateDisplays() {
 }
 
 function gameLoop() {
+  autoGainMM();
+
   checkElementsToShow();
   updateDisplays();
 }
 
-setInterval(gameLoop, 50);
-setInterval(autoclick, autoclickInterval);
+setInterval(gameLoop, GAMELOOP_INTERVAL);
+setInterval(autoclick, AUTOCLICK_INTERVAL);
 setInterval(save, 5000);

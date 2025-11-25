@@ -1,3 +1,5 @@
+let clearSaveCounter = 0;
+
 function save() {
   const requirementsToSave = {};
   for (const requirement of Object.keys(elementRequirements)) {
@@ -15,28 +17,74 @@ function save() {
     upgrades: upgradesToSave,
   };
 
-  localStorage.setItem("incrementalSave", btoa(JSON.stringify(saveObject)));
+  const encodedSave = btoa(JSON.stringify(saveObject));
+
+  localStorage.setItem("incrementalSave", encodedSave);
+
+  return encodedSave;
 }
 
-function load() {
-  const encodedSave = localStorage.getItem("incrementalSave");
-  if (!encodedSave || encodedSave.length === 0) return;
+function load(importedSave = null) {
+  let saveObject;
 
-  const save = JSON.parse(atob(encodedSave));
-  currencies.money = save.currencies.money ?? 0;
-  currencies.mm = save.currencies.mm ?? 0;
+  if (!importedSave) {
+    const encodedSave = localStorage.getItem("incrementalSave");
+    if (!encodedSave || encodedSave.length === 0) return;
 
-  for (const requirement of Object.keys(save.requirements)) {
-    elementRequirements[requirement].isHidden = save.requirements[requirement];
+    saveObject = JSON.parse(atob(encodedSave));
+  } else {
+    saveObject = importedSave;
+  }
+  currencies.money = saveObject.currencies.money ?? 0;
+  currencies.mm = saveObject.currencies.mm ?? 0;
+
+  for (const requirement of Object.keys(saveObject.requirements)) {
+    elementRequirements[requirement].isHidden =
+      saveObject.requirements[requirement];
   }
 
-  for (const upgrade of Object.keys(save.upgrades)) {
-    upgrades[upgrade].count = save.upgrades[upgrade];
+  for (const upgrade of Object.keys(saveObject.upgrades)) {
+    upgrades[upgrade].count = saveObject.upgrades[upgrade];
     upgrades[upgrade].update();
   }
 }
 
+function loadFromSavebank(saveName) {
+  return load(JSON.parse(atob(savebank[saveName])));
+}
+
 function clearSave() {
-  localStorage.clear();
-  location.reload();
+  if (clearSaveCounter < 2) {
+    clearSaveCounter++;
+  } else {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
+function getSaveBox() {
+  return document.getElementById("save-text-box");
+}
+
+function importSave() {
+  const input = getSaveBox().value;
+  if (!input || input.length === 0) return;
+
+  try {
+    const decodedSave = atob(input);
+
+    if (decodedSave[0] !== "{") {
+      throw new Error(`Could not parse ${input} to JSON!`);
+    }
+
+    const save = JSON.parse(decodedSave);
+    load(save);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function exportSave() {
+  const encodedSave = save();
+  getSaveBox().value = encodedSave;
 }

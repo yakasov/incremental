@@ -54,6 +54,11 @@
         <p id="mm-convert-display" class="subtext" style="margin-top: 12px">
           You will gain $MM 0 if you convert now.
         </p>
+        <p
+          id="mm-convert-softcap"
+          class="subtext"
+          style="margin-top: -12px"
+        ></p>
       </div>
 
       <div
@@ -71,11 +76,30 @@
           $MM 10
         </button>
         <p class="inline margin-left">1.00x</p>
+        <p class="subtext" style="margin-top: 0">
+          Purchasing boosts the multiplier, but is not required to activate it
+        </p>
       </div>
       <div id="raise-maxes-upgrade" hidden>
         <p class="inline">Raise the max of the first two upgrades</p>
         <button onclick="buyUpgrade('raise-maxes', 'mm')">$MM 100</button>
-        <p class="inline margin-left"></p>
+        <p class="subtext" style="margin-top: 0"></p>
+      </div>
+
+      <div id="gain-1%-of-mm-upgrade" class="margin-top" hidden>
+        <p class="inline">Passively gain 10% of pending $MM</p>
+        <button onclick="buyUpgrade('gain-1%-of-mm', 'mm')">$MM 250</button>
+      </div>
+
+      <div id="raise-mm-upgrade" class="margin-top" hidden>
+        <p class="inline">Raise $MM to ^1.25</p>
+        <button onclick="buyUpgrade('raise-mm', 'mm')">$MM 2,000</button>
+      </div>
+      <div id="double-mm-increases-multiplier-upgrade" hidden>
+        <p class="inline">Double $MM dollar stacking multiplier</p>
+        <button onclick="buyUpgrade('double-mm-increases-multiplier', 'mm')">
+          $MM 200,000
+        </button>
       </div>
     </column>
     <column>
@@ -86,15 +110,23 @@
     </column>
   </div>
 
-  <div class="footer">
+  <div class="footer dark">
     <div class="inline">
       <button onclick="save()">Save manually</button>
-      <button onclick="clearSave()">Clear save</button>
-      <button onclick="toggleColourScheme()">Toggle colour scheme</button>
+      <button onclick="clearSave()">Clear save (press 3x)</button>
+      <button onclick="importSave()" style="margin-left: 20px">
+        Import save
+      </button>
+      <button onclick="exportSave()">Export save</button>
+      <textarea id="save-text-box" class="save-text-box"></textarea>
+      <button onclick="toggleColourScheme()" style="margin-left: 20px">
+        Toggle colour scheme
+      </button>
     </div>
   </div>
   <script src="./consts.js"></script>
   <script src="./helpers.js"></script>
   <script src="./save.js"></script>
+  <script src="./saves.js"></script>
   <script defer src="./script.js"></script>
 </body>
